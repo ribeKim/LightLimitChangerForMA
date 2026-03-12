@@ -215,19 +215,38 @@ namespace io.github.azukimochi
                         menu = additionalMenu;
                     }
 
-                    menu.controls.Add(new VRCExpressionsMenu.Control()
+                    var isToggle = control.ControlType == LightLimitControlType.SSAO
+                                || control.ControlType == LightLimitControlType.Backlight;
+
+                    if (isToggle)
                     {
-                        name = control.Name,
-                        type = VRCExpressionsMenu.Control.ControlType.RadialPuppet,
-                        icon = control.Icon,
-                        subParameters = new[]
+                        menu.controls.Add(new VRCExpressionsMenu.Control()
                         {
-                            new VRCExpressionsMenu.Control.Parameter
+                            name = control.Name,
+                            type = VRCExpressionsMenu.Control.ControlType.Toggle,
+                            icon = control.Icon,
+                            parameter = new VRCExpressionsMenu.Control.Parameter
                             {
                                 name = control.ParameterName
-                            }
-                        },
-                    });
+                            },
+                        });
+                    }
+                    else
+                    {
+                        menu.controls.Add(new VRCExpressionsMenu.Control()
+                        {
+                            name = control.Name,
+                            type = VRCExpressionsMenu.Control.ControlType.RadialPuppet,
+                            icon = control.Icon,
+                            subParameters = new[]
+                            {
+                                new VRCExpressionsMenu.Control.Parameter
+                                {
+                                    name = control.ParameterName
+                                }
+                            },
+                        });
+                    }
                 }
 
                 if (session.Parameters.AddResetButton)

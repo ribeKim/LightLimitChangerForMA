@@ -16,6 +16,8 @@ namespace io.github.azukimochi
         public List<UnityEngine.Object> Excludes = new List<UnityEngine.Object>();
         public WriteDefaultsSetting WriteDefaults;
 
+        public GameObject SSAODepthObject;
+
 #pragma warning disable CS0612
         public void OnAfterDeserialize()
         {

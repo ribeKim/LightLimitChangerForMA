@@ -22,6 +22,11 @@ namespace io.github.azukimochi
         private SerializedProperty AllowMonochromeControl;
         private SerializedProperty AllowUnlitControl;
         private SerializedProperty AllowEmissionControl;
+        private SerializedProperty AllowSSAOControl;
+        private SerializedProperty AllowBacklightControl;
+        private SerializedProperty InitialSSAOControlValue;
+        private SerializedProperty InitialBacklightControlValue;
+        private SerializedProperty SSAODepthObject;
         private SerializedProperty InitialTempControlValue;
         private SerializedProperty InitialSaturationControlValue;
         private SerializedProperty InitialMonochromeControlValue;
@@ -57,6 +62,11 @@ namespace io.github.azukimochi
             AllowMonochromeControl = parameters.FindPropertyRelative(nameof(LightLimitChangerParameters.AllowMonochromeControl));
             AllowUnlitControl = parameters.FindPropertyRelative(nameof(LightLimitChangerParameters.AllowUnlitControl));
             AllowEmissionControl = parameters.FindPropertyRelative(nameof(LightLimitChangerParameters.AllowEmissionControl));
+            AllowSSAOControl = parameters.FindPropertyRelative(nameof(LightLimitChangerParameters.AllowSSAOControl));
+            AllowBacklightControl = parameters.FindPropertyRelative(nameof(LightLimitChangerParameters.AllowBacklightControl));
+            InitialSSAOControlValue = parameters.FindPropertyRelative(nameof(LightLimitChangerParameters.InitialSSAOControlValue));
+            InitialBacklightControlValue = parameters.FindPropertyRelative(nameof(LightLimitChangerParameters.InitialBacklightControlValue));
+            SSAODepthObject = serializedObject.FindProperty(nameof(LightLimitChangerSettings.SSAODepthObject));
             InitialTempControlValue = parameters.FindPropertyRelative(nameof(LightLimitChangerParameters.InitialTempControlValue));
             InitialSaturationControlValue = parameters.FindPropertyRelative(nameof(LightLimitChangerParameters.InitialSaturationControlValue));
             InitialMonochromeControlValue = parameters.FindPropertyRelative(nameof(LightLimitChangerParameters.InitialMonochromeControlValue));
@@ -161,6 +171,16 @@ namespace io.github.azukimochi
                         Localization.G("label.allow_unlit", "tip.allow_unlit"));
                     EditorGUILayout.PropertyField(AllowEmissionControl,
                         Localization.G("label.allow_emission", "tip.allow_emission"));
+                    EditorGUILayout.PropertyField(AllowSSAOControl,
+                        Localization.G("label.allow_ssao", "tip.allow_ssao"));
+                    if (AllowSSAOControl.boolValue)
+                    {
+                        EditorGUI.indentLevel++;
+                        EditorGUILayout.PropertyField(SSAODepthObject, Localization.G("label.ssao_depth_object"));
+                        EditorGUI.indentLevel--;
+                    }
+                    EditorGUILayout.PropertyField(AllowBacklightControl,
+                        Localization.G("label.allow_backlight", "tip.allow_backlight"));
                     EditorGUILayout.Space(5);
                     EditorGUILayout.PropertyField(AddResetButton, Localization.G("label.allow_reset", "tip.allow_reset"));
                     EditorGUILayout.PropertyField(IsGroupingAdditionalControls, Localization.G("label.grouping_additional_controls"));
@@ -202,6 +222,22 @@ namespace io.github.azukimochi
                         EditorGUILayout.LabelField(Localization.G("label.unlit"), GUILayout.MaxWidth(70.0f), GUILayout.ExpandWidth(false));
                         EditorGUI.BeginDisabledGroup(AllowUnlitControl.boolValue == false);
                         EditorGUILayout.PropertyField(InitialUnlitControlValue, Localization.G(""));
+                        EditorGUI.EndDisabledGroup();
+                    }
+                    using (new EditorGUILayout.HorizontalScope())
+                    {
+                        EditorGUILayout.Space(10);
+                        EditorGUILayout.LabelField(Localization.G("ExpressionMenu.ssao"), GUILayout.MaxWidth(70.0f), GUILayout.ExpandWidth(false));
+                        EditorGUI.BeginDisabledGroup(AllowSSAOControl.boolValue == false);
+                        EditorGUILayout.PropertyField(InitialSSAOControlValue, Localization.G(""));
+                        EditorGUI.EndDisabledGroup();
+                    }
+                    using (new EditorGUILayout.HorizontalScope())
+                    {
+                        EditorGUILayout.Space(10);
+                        EditorGUILayout.LabelField(Localization.G("ExpressionMenu.backlight"), GUILayout.MaxWidth(70.0f), GUILayout.ExpandWidth(false));
+                        EditorGUI.BeginDisabledGroup(AllowBacklightControl.boolValue == false);
+                        EditorGUILayout.PropertyField(InitialBacklightControlValue, Localization.G(""));
                         EditorGUI.EndDisabledGroup();
                     }
                 }

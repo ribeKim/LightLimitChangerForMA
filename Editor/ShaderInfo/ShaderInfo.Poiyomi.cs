@@ -27,6 +27,10 @@ namespace io.github.azukimochi
             public const string _EnableDissolve = "_EnableDissolve";
             public const string _DissolveTextureColor = "_DissolveTextureColor";
             public const string _DissolveToTexture = "_DissolveToTexture";
+
+            public const string _SSAOAnimationToggle = "_SSAOAnimationToggle";
+            public const string _BacklightEnabled = "_BacklightEnabled";
+            public const string _BacklightColor = "_BacklightColor";
             
             private bool isDetectOldVersion = false;
 
@@ -45,6 +49,9 @@ namespace io.github.azukimochi
                 public static readonly int MainColorAdjustTexture = Shader.PropertyToID("_MainColorAdjustTexture");
                 public static readonly int MonochromeLighting = Shader.PropertyToID(_MonochromeLighting);
                 public static readonly int MonoChromeAdditiveLighting = Shader.PropertyToID(_MonoChromeAdditiveLighting);
+                public static readonly int SSAOAnimationToggle = Shader.PropertyToID(_SSAOAnimationToggle);
+                public static readonly int BacklightEnabled = Shader.PropertyToID(_BacklightEnabled);
+                public static readonly int BacklightColor = Shader.PropertyToID(_BacklightColor);
             }
 
             private static class DefaultParameters
@@ -55,6 +62,7 @@ namespace io.github.azukimochi
                 public static readonly Color Color = Color.white;
                 public static readonly float MonochromeLighting = 0;
                 public static readonly float MonoChromeAdditiveLighting = 0;
+                public static readonly Color BacklightColor = new Color(0.85f, 0.8f, 0.7f, 1.0f);
             }
 
             private const string Animated_Suffix = "Animated";
@@ -198,6 +206,27 @@ namespace io.github.azukimochi
                     container.Default.SetParameterAnimation(parameters, _MonoChromeAdditiveLighting, parameters.DefaultMonochromeAdditiveLightingValue);
                     container.Control.SetParameterAnimation(parameters, _MonoChromeAdditiveLighting, 0, 1);
                 }
+
+                if (container.ControlType.HasFlag(LightLimitControlType.SSAO))
+                {
+                    container.Default.SetParameterAnimation(parameters, _SSAOAnimationToggle, 1f);
+                    container.Control.SetParameterAnimation(parameters, _SSAOAnimationToggle, 0f, 1f);
+                }
+
+                if (container.ControlType.HasFlag(LightLimitControlType.Backlight))
+                {
+                    var backlightColor = DefaultParameters.BacklightColor;
+                    foreach (var mat in parameters.Materials)
+                    {
+                        if (mat != null && mat.HasProperty(PropertyIDs.BacklightColor))
+                        {
+                            backlightColor = mat.GetColor(PropertyIDs.BacklightColor);
+                            break;
+                        }
+                    }
+                    container.Default.SetParameterAnimation(parameters, _BacklightColor, backlightColor);
+                    container.Control.SetParameterAnimation(parameters, _BacklightColor, Color.black, backlightColor);
+                }
             }
 
             public override void AdditionalControl(Material material, in LightLimitChangerParameters parameters)
@@ -228,6 +257,16 @@ namespace io.github.azukimochi
                 {
                     material.SetOverrideTag($"{_MonochromeLighting}{Animated_Suffix}", Flag_IsAnimated);
                     material.SetOverrideTag($"{_MonoChromeAdditiveLighting}{Animated_Suffix}", Flag_IsAnimated);
+                }
+
+                if (parameters.AllowSSAOControl)
+                {
+                    material.SetOverrideTag($"{_SSAOAnimationToggle}{Animated_Suffix}", Flag_IsAnimated);
+                }
+
+                if (parameters.AllowBacklightControl)
+                {
+                    material.SetOverrideTag($"{_BacklightColor}{Animated_Suffix}", Flag_IsAnimated);
                 }
             }
 

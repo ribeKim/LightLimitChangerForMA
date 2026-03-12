@@ -13,7 +13,9 @@ namespace io.github.azukimochi
         LightMax = 1 << 5,
         Monochrome = 1 << 6,
         Emission = 1 << 7,
+        SSAO = 1 << 8,
+        Backlight = 1 << 9,
 
-        AdditionalControls = Saturation | Unlit | ColorTemperature | Monochrome | Emission,
+        AdditionalControls = Saturation | Unlit | ColorTemperature | Monochrome | Emission | SSAO | Backlight,
     }
 }

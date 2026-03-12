@@ -46,6 +46,15 @@ namespace io.github.azukimochi
             return animationClip;
         }
 
+        public static AnimationClip SetParameterAnimation(this AnimationClip animationClip, in ControlAnimationParameters parameters, string propertyName, Color start, Color end)
+        {
+            animationClip.SetCurve(parameters.TargetPath, parameters.TargetType, $"{MaterialAnimationKeyPrefix}{propertyName}.r", Utils.Animation.Linear(start.r, end.r));
+            animationClip.SetCurve(parameters.TargetPath, parameters.TargetType, $"{MaterialAnimationKeyPrefix}{propertyName}.g", Utils.Animation.Linear(start.g, end.g));
+            animationClip.SetCurve(parameters.TargetPath, parameters.TargetType, $"{MaterialAnimationKeyPrefix}{propertyName}.b", Utils.Animation.Linear(start.b, end.b));
+            animationClip.SetCurve(parameters.TargetPath, parameters.TargetType, $"{MaterialAnimationKeyPrefix}{propertyName}.a", Utils.Animation.Linear(start.a, end.a));
+            return animationClip;
+        }
+
         public static AnimationClip SetParameterAnimation(this AnimationClip animationClip, in ControlAnimationParameters parameters, string propertyName, Color value, IncludeField includeField = IncludeField.RGBA)
         {
             if (includeField.HasFlag(IncludeField.R))

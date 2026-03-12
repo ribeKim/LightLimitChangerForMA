@@ -267,6 +267,36 @@ so please consider using the latter version if it becomes unusable.",
                 }
             },
             {
+                "label.allow_ssao", new []
+                {
+                    "Enable SSAO Control",
+                    "SSAO調整を有効にする",
+                    "啟用 SSAO 控制",
+                    "启用 SSAO 控制",
+                    "SSAO 조정 활성화"
+                }
+            },
+            {
+                "label.ssao_depth_object", new []
+                {
+                    "SSAO Depth Object",
+                    "SSAOデプスオブジェクト",
+                    "SSAO 深度物件",
+                    "SSAO 深度对象",
+                    "SSAO 뎁스 오브젝트"
+                }
+            },
+            {
+                "label.allow_backlight", new []
+                {
+                    "Enable Backlight Control",
+                    "バックライト調整を有効にする",
+                    "啟用背光控制",
+                    "启用背光控制",
+                    "백라이트 조정 활성화"
+                }
+            },
+            {
                 "label.allow_reset", new []
                 {
                     "Add Reset Button",
@@ -702,6 +732,26 @@ so please consider using the latter version if it becomes unusable.",
                 }
             },
             {
+                "tip.allow_ssao", new []
+                {
+                    "Enables SSAO toggle functionality (Poiyomi Only)",
+                    "SSAOのトグル機能を有効化することができます (Poiyomi Only)",
+                    "啟用 SSAO 切換功能（僅 Poiyomi）",
+                    "启用 SSAO 切换功能（仅 Poiyomi）",
+                    "SSAO 토글 기능을 활성화할 수 있습니다 (Poiyomi 전용)"
+                }
+            },
+            {
+                "tip.allow_backlight", new []
+                {
+                    "Enables Backlight toggle functionality (Poiyomi Only)",
+                    "バックライトのトグル機能を有効化することができます (Poiyomi Only)",
+                    "啟用背光切換功能（僅 Poiyomi）",
+                    "启用背光切换功能（仅 Poiyomi）",
+                    "백라이트 토글 기능을 활성화할 수 있습니다 (Poiyomi 전용)"
+                }
+            },
+            {
                 "tip.allow_reset", new []
                 {
                     "Adds a reset button to return parameters to selected values",
@@ -1115,6 +1165,26 @@ Quest용 빌드의 경우 Quest 셰이더가 지원되지 않으므로 이 오�
                     "自發光",
                     "自发光",
                     "발광"
+                }
+            },
+            {
+                "ExpressionMenu.ssao", new []
+                {
+                    "SSAO",
+                    "SSAO",
+                    "SSAO",
+                    "SSAO",
+                    "SSAO"
+                }
+            },
+            {
+                "ExpressionMenu.backlight", new []
+                {
+                    "Backlight",
+                    "バックライト",
+                    "背光",
+                    "背光",
+                    "백라이트"
                 }
             },
             {

@@ -49,6 +49,12 @@ namespace io.github.azukimochi
 
             if (parameters.AllowEmissionControl)
                 yield return Parameter<float>(Passes.ParameterName_Emission);
+
+            if (parameters.AllowSSAOControl)
+                yield return Parameter<bool>(Passes.ParameterName_SSAO);
+
+            if (parameters.AllowBacklightControl)
+                yield return Parameter<bool>(Passes.ParameterName_Backlight);
         }
 
         private ProvidedParameter Parameter<T>(string name, bool sync = true, ParameterNamespace @namespace = ParameterNamespace.Animator) 

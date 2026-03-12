@@ -41,6 +41,8 @@ namespace io.github.azukimochi
         internal const string ParameterName_Emission = "LightLimitEmission";
         internal const string ParameterName_Reset = "LightLimitReset";
         internal const string ParameterName_Monochrome = "LightLimitMonochrome";
+        internal const string ParameterName_SSAO = "LightLimitSSAO";
+        internal const string ParameterName_Backlight = "LightLimitBacklight";
 
         private static Session GetSession(BuildContext context)
         {
@@ -155,6 +157,18 @@ namespace io.github.azukimochi
                 {
                     targetControl |= LightLimitControlType.Emission;
                     controls.Add(ControlAnimationContainer.Create(LightLimitControlType.Emission, Localization.S("ExpressionMenu.emission"), "Emission", ParameterName_Emission, 1.0f, Icons.Emission, defaultAnimation));
+                }
+
+                if (parameters.AllowSSAOControl)
+                {
+                    targetControl |= LightLimitControlType.SSAO;
+                    controls.Add(ControlAnimationContainer.Create(LightLimitControlType.SSAO, Localization.S("ExpressionMenu.ssao"), "SSAO", ParameterName_SSAO, parameters.InitialSSAOControlValue ? 1.0f : 0.0f, Icons.Light, defaultAnimation));
+                }
+
+                if (parameters.AllowBacklightControl)
+                {
+                    targetControl |= LightLimitControlType.Backlight;
+                    controls.Add(ControlAnimationContainer.Create(LightLimitControlType.Backlight, Localization.S("ExpressionMenu.backlight"), "Backlight", ParameterName_Backlight, parameters.InitialBacklightControlValue ? 1.0f : 0.0f, Icons.Light, defaultAnimation));
                 }
 
 

@@ -34,6 +34,11 @@ namespace io.github.azukimochi
         public bool AllowMonochromeControl = false;
         public bool AllowUnlitControl = false;
         public bool AllowEmissionControl = false;
+        public bool AllowSSAOControl = false;
+        public bool AllowBacklightControl = false;
+
+        public bool InitialSSAOControlValue = true;
+        public bool InitialBacklightControlValue = true;
         public bool AddResetButton = false;
         
         [Range(0,1)]

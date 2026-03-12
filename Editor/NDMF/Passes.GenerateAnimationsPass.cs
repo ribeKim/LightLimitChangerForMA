@@ -79,7 +79,21 @@ namespace io.github.azukimochi
                     }
                 }
 
-                
+                var ssaoDepthObject = session.Settings?.SSAODepthObject;
+                if (ssaoDepthObject != null && session.TargetControl.HasFlag(LightLimitControlType.SSAO))
+                {
+                    foreach (ref readonly var container in animationContainers)
+                    {
+                        if (container.ControlType != LightLimitControlType.SSAO)
+                            continue;
+
+                        var depthPath = ssaoDepthObject.transform.AvatarRootPath();
+                        container.Default.SetCurve(depthPath, typeof(GameObject), "m_IsActive", AnimationCurve.Constant(0, 0, 1f));
+                        container.Control.SetCurve(depthPath, typeof(GameObject), "m_IsActive", Utils.Animation.Linear(0f, 1f));
+                        break;
+                    }
+                }
+
                 var toggleTree = session.DirectBlendTree.AddAndGate("Enable");
                 toggleTree.OFF = session.Controls[0].Default;
                 toggleTree.Parameters = new[] { ParameterName_Toggle };
